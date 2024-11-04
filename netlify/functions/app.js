@@ -78,7 +78,7 @@ const content = req.body
       destinationLocationCode: destination,
       departureDate: departure,
       returnDate: return_date, 
-      travelClass: 'PREMIUM_ECONOMY',      // Clase de viaje (opcional)
+      travelClass: 'ECONOMY',      // Clase de viaje (opcional)
       nonStop: false, //Si se establece en true solo buscara vuelos sin paradas!
       adults: 1,
     })
