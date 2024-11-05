@@ -78,9 +78,9 @@ const content = req.body
       destinationLocationCode: destination,
       departureDate: departure,
       returnDate: return_date, 
-      travelClass: 'ECONOMY',      // Clase de viaje (opcional)
       nonStop: false, //Si se establece en true solo buscara vuelos sin paradas!
       adults: 1,
+      excludedAirlineCodes:'F9',
       max: 50
     })
     .catch((err) => console.log(err));
@@ -130,7 +130,6 @@ async function getFilteredFlights(origin, destination, departureDate, maxPrice, 
       destinationLocationCode: destination,
       departureDate: departureDate,
       adults: 1,
-      excludedAirlineCodes:'F9',
       max: 15, // Aumentamos el número de resultados para tener más opciones
       
     });
