@@ -7,16 +7,16 @@ const cors = require('cors');
 const Amadeus = require('amadeus');
 app.use(cors());
 router.use(express.json());
-router.use(express.urlencoded({ extended: false }));
-// Ejemplo de búsqueda de vuelos baratos en un rango de fechas
-const origin = 'SDQ'; // Origen
-const destination = 'MDE'; // Destino
-const startDate = '2025-02-15'; // Fecha de inicio del rango
-const endDate = '2025-02-30'; // Fecha de fin del rango
-const maxPrice = 700; // Precio máximo
-const maxDuration = 15; // Duración máxima en horas
-const isDirect = false; // Preferencia por vuelos directos
-const prefHours = { start: 0, end: 24 }; // Horario preferido (entre 6 AM y 10 PM)
+// router.use(express.urlencoded({ extended: false }));
+// // Ejemplo de búsqueda de vuelos baratos en un rango de fechas
+// const origin = 'SDQ'; // Origen
+// const destination = 'MDE'; // Destino
+// const startDate = '2025-02-15'; // Fecha de inicio del rango
+// const endDate = '2025-02-30'; // Fecha de fin del rango
+// const maxPrice = 700; // Precio máximo
+// const maxDuration = 15; // Duración máxima en horas
+// const isDirect = false; // Preferencia por vuelos directos
+// const prefHours = { start: 0, end: 24 }; // Horario preferido (entre 6 AM y 10 PM)
 
 
 // Configura el cliente de Amadeus con tus credenciales
@@ -72,6 +72,8 @@ const content = req.body
    const destination = await content.data.to.iataCode;
    const departure = await content.data.departure_date;
    const return_date = await content.data.return_date;
+   const adults = await content.data.adults;
+   const childrens = await content.data.childrens;
     const response = await amadeus.shopping.flightOffersSearch.get({
       currencyCode: "USD",
       originLocationCode: origin,
@@ -79,7 +81,7 @@ const content = req.body
       departureDate: departure,
       returnDate: return_date, 
       nonStop: false, //Si se establece en true solo buscara vuelos sin paradas!
-      adults: 1,
+      adults: adults,
       excludedAirlineCodes:'F9',
       max: 50
     })
