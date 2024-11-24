@@ -69,13 +69,14 @@ router.get('/api/cheapestflight', async (req, res) => {
 router.post('/api/flights', async (req, res) => {
 const content = req.body
      const origin = await content.data.from.iataCode;
+     const currency = await content.data.currency;
    const destination = await content.data.to.iataCode;
    const departure = await content.data.departure_date;
    const return_date = await content.data.return_date;
    const adults = await content.data.adults;
    const childrens = await content.data.childrens;
     const response = await amadeus.shopping.flightOffersSearch.get({
-      currencyCode: "USD",
+      currencyCode: currency,
       originLocationCode: origin,
       destinationLocationCode: destination,
       departureDate: departure,
