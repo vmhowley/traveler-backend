@@ -83,7 +83,6 @@ const content = req.body
       returnDate: return_date, 
       nonStop: false, //Si se establece en true solo buscara vuelos sin paradas!
       adults: adults,
-      childrens: childrens,
       travelClass:'ECONOMY',
       maxPrice:'500',
       excludedAirlineCodes:'F9',
