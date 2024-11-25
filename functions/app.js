@@ -84,7 +84,6 @@ const content = req.body
       nonStop: false, //Si se establece en true solo buscara vuelos sin paradas!
       adults: adults,
       travelClass:'ECONOMY',
-      maxPrice:'500',
       excludedAirlineCodes:'F9',
       max: 50
     })
@@ -121,10 +120,48 @@ const content = req.body
 
 
 
-router.post('/api/bookflight', async (req, res) => {
- const response = await bookFlight(req, res)
-    res.json(response.data)    
-  })
+  router.post("/flightCreateOrder", async function (req, res) {
+    res.json(req.body);
+    let inputFlightCreateOrder = req.body;
+    console.log(req.body);
+    const returnBokkin = amadeus.booking.flightOrders
+      .post(
+        JSON.stringify({
+          data: {
+            type: "flight-order",
+            flightOffers: [inputFlightCreateOrder],
+            travelers: [
+              {
+                id: "1",
+                dateOfBirth: "2012-10-11",
+                gender: "FEMALE",
+                contact: {
+                  emailAddress: "jorge.gonzales833@telefonica.es",
+                  phones: [
+                    {
+                      deviceType: "MOBILE",
+                      countryCallingCode: "34",
+                      number: "480080076",
+                    },
+                  ],
+                },
+                name: {
+                  firstName: "ADRIANA",
+                  lastName: "GONZALES",
+                },
+              },
+            ],
+          },
+        })
+      )
+      .then(function (response) {
+        console.log(response.result);
+        confirmOrder = response.result;
+      })
+      .catch(function (responseError) {
+        console.log(responseError);
+      });
+  });
 
 // Función para buscar vuelos baratos con filtros adicionales
 async function getFilteredFlights(origin, destination, departureDate, maxPrice, maxDuration, preferDirect, departureTimeWindow) {
