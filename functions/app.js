@@ -75,13 +75,14 @@ const content = req.body
    const return_date = await content.data.return_date;
    const adults = await content.data.adults;
    const childrens = await content.data.childrens;
+   const nonStop = await content.data.nonStop;
     const response = await amadeus.shopping.flightOffersSearch.get({
       currencyCode: currency,
       originLocationCode: origin,
       destinationLocationCode: destination,
       departureDate: departure,
       returnDate: return_date, 
-      nonStop: false, //Si se establece en true solo buscara vuelos sin paradas!
+      nonStop: nonStop, //Si se establece en true solo buscara vuelos sin paradas!
       adults: adults,
       travelClass:'ECONOMY',
       excludedAirlineCodes:'F9',
