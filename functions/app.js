@@ -82,10 +82,8 @@ const content = req.body
       destinationLocationCode: destination,
       departureDate: departure,
       returnDate: return_date, 
-      nonStop: true, //Si se establece en true solo buscara vuelos sin paradas!
+      nonStop: nonStop, //Si se establece en true solo buscara vuelos sin paradas!
       adults: adults,
-      travelClass:'ECONOMY',
-      excludedAirlineCodes:'F9',
       max: 50
     })
     .catch((err) => console.log(err));
